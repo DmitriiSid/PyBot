@@ -16,13 +16,15 @@ from mistralai.models.chat_completion import ChatMessage
 #from sentence_transformers import SentenceTransformer
 #from pypdf import PdfReader
 
+st.set_page_config(layout = "wide")
+
 def load_lottie(url):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
 
-lottie_file =load_lottie("https://lottie.host/32e33685-f592-47f8-a8a4-dbf8d138c59a/ZNDgYsxEhR.json")
+lottie_file =load_lottie("https://lottie.host/96a838d6-a704-42f7-ad13-7380a543bd58/3FFOc0GGnx.json")
 
 
 @st.cache_resource
@@ -201,11 +203,14 @@ def reply(query: str, index: IndexFlatL2, chunks):
 # Main application logic
 def main():
     """Main function to run the application logic."""
-    col1, col2, col3 = st.columns((1.5,1,1))
-    col2.header("🤖 PyBot 🤖")
+    col1, col2,col3 = st.columns((0.2,1.3,1))
+    with col2:
+        st.header("🤖 PyBot")
+        st.subheader("Ask your Python expert on questions regarding coding 🤓")
     with col3:
-        st_lottie(lottie_file)
-    st.subheader("Ask your Python expert on questions regarding coding in Python 🐍")
+        st_lottie(lottie_file,width=200, height=150)
+    
+    
     if st.sidebar.button("🔴 Reset conversation"):
         st.session_state.messages = []
 
