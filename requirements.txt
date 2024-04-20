@@ -7,3 +7,4 @@ sentence_transformers
 tqdm
 Jinja2
 stqdm
+streamlit_lottie
