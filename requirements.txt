@@ -1,0 +1,9 @@
+streamlit
+faiss-cpu
+pypdf
+mistralai
+torch
+sentence_transformers
+tqdm
+Jinja2
+stqdm
