@@ -3,6 +3,8 @@ import time
 from pathlib import Path
 
 import numpy as np
+import requests
+from streamlit_lottie import st_lottie
 from tqdm import tqdm
 from stqdm import stqdm
 import streamlit as st
@@ -14,6 +16,13 @@ from mistralai.models.chat_completion import ChatMessage
 #from sentence_transformers import SentenceTransformer
 #from pypdf import PdfReader
 
+def load_lottie(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+lottie_file =load_lottie("https://lottie.host/32e33685-f592-47f8-a8a4-dbf8d138c59a/ZNDgYsxEhR.json")
 
 
 @st.cache_resource
@@ -194,6 +203,8 @@ def main():
     """Main function to run the application logic."""
     col1, col2, col3 = st.columns((1.5,1,1))
     col2.header("🤖 PyBot 🤖")
+    with col3:
+        st_lottie(lottie_file)
     st.subheader("Ask your Python expert on questions regarding coding in Python 🐍")
     if st.sidebar.button("🔴 Reset conversation"):
         st.session_state.messages = []
