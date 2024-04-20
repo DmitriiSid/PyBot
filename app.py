@@ -194,7 +194,7 @@ def main():
     """Main function to run the application logic."""
     col1, col2, col3 = st.columns((1.5,1,1))
     col2.header("🤖 PyBot 🤖")
-    st.subheader("Ask your Python expert on questions regarding coding")
+    st.subheader("Ask your Python expert on questions regarding coding in Python 🐍")
     if st.sidebar.button("🔴 Reset conversation"):
         st.session_state.messages = []
 
