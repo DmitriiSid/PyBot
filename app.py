@@ -203,32 +203,41 @@ def reply(query: str, index: IndexFlatL2, chunks):
 # Main application logic
 def main():
     """Main function to run the application logic."""
-    col1, col2,col3 = st.columns((0.2,1.3,1))
-    with col2:
-        st.header("🤖 PyBot")
-        st.subheader("Ask your Python expert on questions regarding coding 🤓")
-    with col3:
-        st_lottie(lottie_file,width=200, height=150)
-    
-    
-    if st.sidebar.button("🔴 Reset conversation"):
-        st.session_state.messages = []
+    is_logged_in = False
+    pswd = st.text_input('Enter a password')
+    if pswd == os.environ["PASS"]:
+        is_logged_in = True
+    else: 
+        is_logged_in = False 
+    if is_logged_in:
+        col1, col2,col3 = st.columns((0.2,1.3,1))
+        with col2:
+            st.header("🤖 PyBot")
+            st.subheader("Ask your Python expert on questions regarding coding 🤓")
+        with col3:
+            st_lottie(lottie_file,width=200, height=150)
+        
+        
+        if st.sidebar.button("🔴 Reset conversation"):
+            st.session_state.messages = []
 
-    index, chunks = build_and_cache_index()
-    
+        index, chunks = build_and_cache_index()
+        
 
-    for message in st.session_state.messages:
-        with st.chat_message(message["agent"]):
-            st.write(message["content"])
+        for message in st.session_state.messages:
+            with st.chat_message(message["agent"]):
+                st.write(message["content"])
 
-    query = st.chat_input("Ask something about Python")
+        query = st.chat_input("Ask something about Python")
 
-    if not st.session_state.messages:
-        add_message("Ask me anything!")
+        if not st.session_state.messages:
+            add_message("Ask me anything!")
 
-    if query:
-        add_message(query, agent="human", stream=False, store=True)
-        reply(query, index, chunks)
+        if query:
+            add_message(query, agent="human", stream=False, store=True)
+            reply(query, index, chunks)
+    else:
+        st.error("Please, log in using password")
 
 
 if __name__ == "__main__":
